@@ -1,0 +1,392 @@
+/* ================================================================
+   1. GLOBAL VARIABLES & RESET
+   Centralized colors and transitions for easy theming
+================================================================ */
+:root {
+    --bg-color: #ffffff;
+    --text-main: #1a1a1a;
+    --text-muted: #666666;
+    --accent: #000000; 
+    --border-color: #eeeeee;
+    --hover-gray: #e0e0e0;
+    --ai-bg: #f9f9f9;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+*, *::before, *::after { 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: "Montserrat", sans-serif; 
+    margin: 0; 
+    padding: 10px 20px 0 20px; 
+    background: var(--bg-color); 
+    color: var(--text-main); 
+    line-height: 1.6; 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ================================================================
+   2. HEADERS & NAVIGATION
+================================================================ */
+
+h1 { 
+    font-weight: lighter; 
+    text-align: center; 
+    font-size: clamp(2rem, 5vw, 3.5rem); 
+    margin: 0px auto; 
+    letter-spacing: -0.02em;
+}
+
+.titleexplore { 
+    font-weight: 200;       
+    text-align: center; 
+    font-size: clamp(1.4rem, 3vw, 2.2rem); 
+    margin: 50px auto 20px auto;            
+    letter-spacing: -0.01em;       
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0px auto 10px auto;
+    text-align: center;
+    max-width: 600px;
+    padding: 0 20px;
+}
+
+.nav-header-actions {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 1000;
+}
+
+/* Common Button Styles */
+.icon-nav-btn, .explore-btn, .restart-btn, .clear-all-btn {
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.icon-nav-btn:hover, .explore-btn:hover, .clear-all-btn:hover { 
+    color: var(--accent); 
+}
+
+.restart-btn:hover { 
+    transform: rotate(180deg); 
+    color: var(--accent);
+}
+
+/* ================================================================
+   3. SEARCH COMPONENTS (Home/Index)
+   [DELETE IF NOT USING SEARCH INPUT]
+================================================================ */
+
+.search-container { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 20px 20px;
+    gap: 20px;
+    width: 100%;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+    padding: 4px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    background-color: #f6f6f6;
+    transition: var(--transition);
+}
+
+.search-box:focus-within {
+    background-color: #ffffff;
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+}
+
+#sparkle-icon {
+    position: absolute;
+    left: 20px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+input { 
+    flex: 1;
+    padding: 12px 0 12px 30px; 
+    border: none;
+    font-size: 16px;
+    outline: none;
+    background-color: transparent;
+    font-family: inherit;
+}
+
+.searchbutton { 
+    padding: 10px; 
+    background-color: transparent; 
+    border: none; 
+    cursor: pointer; 
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.searchbutton:hover { 
+    transform: scale(1.1) rotate(10deg); 
+}
+
+/* ================================================================
+   4. GENRE SELECTION & TAGS (Explore Page)
+   [DELETE IF NOT USING FILTERS]
+================================================================ */
+
+.genre-grid { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 8px; 
+    justify-content: center; 
+    max-width: 900px; 
+    margin: 0 auto 40px; 
+}
+
+.genre-btn { 
+    padding: 8px 18px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 20px; 
+    background: #f9f9f9; 
+    cursor: pointer; 
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s; 
+    font-family: inherit; 
+    font-size: 0.85rem; 
+}
+
+.genre-btn:hover { 
+    background-color: var(--hover-gray); 
+    border-color: var(--hover-gray); 
+    color: gray;
+}
+
+.genre-btn.active { 
+    background: #ffffff; 
+    border: 1px solid #808080; 
+    font-weight: 500; 
+}
+
+.genre-tag { 
+    display: inline-block; 
+    padding: 3px 10px; 
+    border-radius: 6px; 
+    font-size: 0.75rem; 
+    margin: 2px; 
+    /* CHANGED: Deep Navy Blue for text to contrast with light backgrounds */
+    color: #0d47a1; 
+    /* CHANGED: Very subtle blue border */
+    border: 1px solid rgba(33, 150, 243, 0.2);
+    white-space: nowrap; 
+    font-weight: 600; 
+    letter-spacing: 0.2px;
+}
+
+/* ================================================================
+   5. RESULTS LAYOUT (AI Summary & Movie Cards)
+================================================================ */
+
+#results { 
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.ai-summary {
+    background-color: var(--ai-bg);
+    padding: 25px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    font-size: 1.05rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.movie-card { 
+    display: flex; 
+    gap: 25px;
+    padding: 25px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.poster-img { 
+    width: 110px; 
+    height: 165px;
+    object-fit: cover; 
+    border-radius: 6px;
+    flex-shrink: 0;
+    background-color: #eee;
+}
+
+.movie-info { flex: 1; }
+.movie-title { font-size: 1.2rem; font-weight: 500; margin-bottom: 5px; }
+
+.rating { 
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.overview { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+
+/* ================================================================
+   6. TABLE VIEW (Explore Page)
+================================================================ */
+
+.table-container { overflow-x: auto; max-width: 1000px; margin: 0 auto; flex-grow: 1; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; display: none; }
+table.visible { display: table; animation: fadeIn 0.5s; }
+
+th { 
+    text-align: left; 
+    border-bottom: 1px solid var(--accent); 
+    padding: 15px 15px 8px 15px; 
+    font-weight: 500; 
+    text-transform: uppercase; 
+    font-size: 0.75rem; 
+    letter-spacing: 1px; 
+    cursor: pointer; 
+    user-select: none; 
+    white-space: nowrap;
+}
+
+th span { margin-left: 5px; color: #ccc; opacity: 0; transition: opacity 0.2s; display: inline-flex; align-items: center; vertical-align: middle; }
+th:hover span { opacity: 1; }
+th span.active { color: var(--accent); }
+
+td { padding: 15px; border-bottom: 1px solid var(--border-color); font-size: 0.95rem; }
+tr:hover { background-color: #fafafa; }
+
+.rating-badge { background: #f0f0f0; padding: 2px 8px; border-radius: 4px; font-weight: 500; font-size: 0.85rem; }
+.table-poster { width: 45px; height: 68px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.poster-placeholder { width: 45px; height: 68px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #999; }
+
+/* ================================================================
+   7. MODAL STYLES
+================================================================ */
+
+.modal-overlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.5); display: none; justify-content: center; 
+    align-items: center; z-index: 2000; opacity: 0; transition: opacity 0.3s; 
+}
+.modal-overlay.open { display: flex; opacity: 1; }
+.modal-content { 
+    background: white; padding: 30px; border-radius: 12px; 
+    max-width: 500px; width: 90%; position: relative; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+    transform: scale(0.9); transition: transform 0.3s; 
+}
+.modal-overlay.open .modal-content { transform: scale(1); }
+.close-modal { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.5rem; color: #999; }
+.view-btn { padding: 0; border: none; background: none; cursor: pointer; color: #666; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; }
+.view-btn:hover { color: #000; transform: scale(1.1); }
+
+/* ================================================================
+   8. UTILITIES & ANIMATIONS
+================================================================ */
+.scroll-top-btn {
+    position: fixed; bottom: 30px; right: 30px;
+    background: transparent; color: var(--accent);
+    border: none; width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2000; opacity: 0; visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+}
+.scroll-top-btn.show { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+
+.spinner {
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    width: 30px; height: 30px; border-radius: 50%;
+    border-left-color: var(--accent);
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pulse-gold { 0%, 100% { transform: scale(0.85); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } }
+@keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.3); } 50% { opacity: 1; transform: scale(1); } }
+
+.sparkle-main { transform-origin: center; animation: pulse-gold 4s infinite ease-in-out; }
+.sparkle-mini { transform-origin: center; animation: twinkle 4s infinite ease-in-out; }
+
+footer { text-align: center; padding: 40px 20px 20px; color: #999; font-size: 0.75rem; margin-top: auto; }
+
+/* ================================================================
+   9. RESPONSIVE DESIGN
+================================================================ */
+
+/* Tablet/Mobile Table Conversion */
+/* Transforms the standard table into a Card Layout for smaller screens */
+@media (max-width: 768px) {
+    .table-container { overflow-x: visible; }
+    table.visible { display: block; }
+    thead { display: none; }
+    tbody { display: block; }
+    tr {
+        display: grid;
+        grid-template-columns: 70px 1fr;
+        grid-template-rows: auto auto auto auto;
+        gap: 4px 15px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    td { border: none; padding: 0; display: block; }
+    /* Grid positioning for card elements */
+    td[data-label="Poster"] { grid-row: 1 / span 4; grid-column: 1; }
+    td[data-label="Title"] { grid-row: 1; grid-column: 2; font-size: 1.05rem; font-weight: 600; padding-right: 40px; align-self: center; }
+    td[data-label="Details"] { grid-row: 1; grid-column: 2; justify-self: end; align-self: center; }
+    td[data-label="Year"] { grid-row: 2; grid-column: 2; color: #888; font-size: 0.85rem; }
+    td[data-label="Rating"] { grid-row: 3; grid-column: 2; align-self: center; margin: 4px 0; }
+    td[data-label="Genre"] { grid-row: 4; grid-column: 2; align-self: center; margin-top: 4px; }
+    
+    .table-poster, .poster-placeholder { width: 60px; height: 90px; }
+}
+
+/* Small Mobile Adjustments */
+@media (max-width: 600px) {
+    .movie-card { gap: 15px; }
+    .poster-img { width: 80px; height: 120px; }
+    .overview { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
+}

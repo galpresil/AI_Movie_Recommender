@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍿</text></svg>">
+    <title>AI Movie Recommender</title>
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <!-- website style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+</head>
+<body>
+
+    <div class="nav-header-actions">
+
+        <!-- Back to Search icon -->
+        <a href="/" class="icon-nav-btn" title="Back to Search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z"/>
+                <path d="M20 3v4"/><path d="M22 5h-4"/>
+            </svg>
+        </a>
+
+        <!-- Restart icon -->
+        <button class="icon-nav-btn restart-btn" onclick="confirmReset()" title="Reset Page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Page Title -->
+    <span class="titleexplore">Explore Movies by Genre</span>
+
+    <div class="genre-grid">
+
+        <!-- All the genres -->
+        {% for genre in genres %}
+        <button class="genre-btn" onclick="toggleGenre('{{ genre }}', this)">{{ genre }}</button>
+        {% endfor %}
+
+        <!-- clear All Genres icon -->
+        <button onclick="clearAllGenres()" class="clear-all-btn" title="Clear All">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21h-6Z"></path><path d="M22 21H7"></path><path d="m5 11 9 9"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Movies Table -->
+    <div class="table-container">
+        <table id="movieTable">
+            <thead>
+                <tr>
+                    <th style="width: 60px;"></th> 
+                    <th onclick="sortTable('title')">Title <span id="sort-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg></span></th>
+                    <th onclick="sortTable('year')">Year <span id="sort-year"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg></span></th>
+                    <th onclick="sortTable('rating')">Rating <span id="sort-rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg></span></th>
+                    <th>Genre Tags</th>
+                    <th style="width: 50px;"></th> 
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <div id="descModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal(event)">&times;</span>
+            <h2 id="modalTitle" style="margin-top: 0; font-weight: 500;"></h2>
+            <p id="modalDesc" style="color: #555; font-size: 0.95rem; line-height: 1.6;"></p>
+        </div>
+    </div>
+
+    <!-- scroll to top button -->
+    <button id="scrollTopBtn" class="scroll-top-btn" onclick="scrollToTop()" title="Go to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer>&copy; 2026 Gal Presil. All rights reserved.</footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+      
+</body>
+</html>
