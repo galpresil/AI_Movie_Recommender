@@ -26,6 +26,7 @@ AI_Movie_Recommender/
     ├── final_merged_movies.csv
     ├── movie_faiss.index
     ├── movie_vectors.npy
+    │
     ├── .vscode/
     │      └── settings.json
     │     
