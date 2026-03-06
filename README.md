@@ -1,6 +1,26 @@
-# AI_Movie_Recommender
+# AI Movie Recommender
 
-## Folder Tree Structure:
+This project is an AI-powered movie recommendation platform designed to decode natural language user requests and provide highly relevant, personalized film suggestions. By combining semantic search with lexical precision, the system ensures that users find the exact movie they are looking for.
+
+## Project Overview
+- Goal: To develop a recommendation system based on advanced AI techniques that understands user intent.
+- Core Question: Can AI effectively decode user requests to locate and recommend the most suitable movie? 
+
+## Technical Architecture
+The system utilizes a Retrieval-Augmented Generation (RAG) workflow to provide conversational and accurate answers.
+- Backend: Python and Flask.
+- Frontend: HTML5, CSS3, and JavaScript.
+- Hybrid Search Engine: Combines FAISS (Vector Search) for semantic meaning with BM25 (Keyword Filtering) for exact term matching.
+- AI Models:
+    - Trinity Large Preview (Arcee AI): Used for query optimization (rewriting) and generating the final conversational response.
+    - MoonDream2 (Hugging Face): A Vision-Language Model used to describe movie posters for better text enrichment.
+
+## Key Functions
+- Rewriting Function: Acts as a "smart translator" that splits a user's natural language request into positive terms (what they want) and negative terms (what to avoid).
+- Semantic Pipeline: Converts movie data into numerical vectors using Sentence Transformers to find "nearest neighbor" matches.
+- Reranking: Scores and re-orders results to ensure the most relevant movies are presented at the top.
+
+## Folder Tree Structure
 
 ```text
 AI_Movie_Recommender/
@@ -20,7 +40,7 @@ AI_Movie_Recommender/
 │   ├── cleaned_merged_movies (output).csv
 │   └── my_data (input).csv
 |
-├── movie_project/
+└── movie_project/
     ├── app.py
     ├── bm25_model.pkl
     ├── final_merged_movies.csv
