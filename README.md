@@ -22,8 +22,11 @@ The system utilizes a Retrieval-Augmented Generation (RAG) workflow to provide c
 - Semantic Pipeline: Converts movie data into numerical vectors using Sentence Transformers to find "nearest neighbor" matches.
 - Reranking: Scores and re-orders results to ensure the most relevant movies are presented at the top.
 
-## Folder Tree Structure
+## Installation
+Install the required libraries via pip:
+pip install flask pandas numpy faiss-cpu sentence-transformers openai rank_bm25 tqdm
 
+## Folder Tree Structure
 ```text
 AI_Movie_Recommender/
 |
