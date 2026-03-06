@@ -46,6 +46,7 @@ AI_Movie_Recommender/
 │   └── my_data (input).csv
 |
 └── movie_project/
+    │
     ├── app.py
     ├── bm25_model.pkl
     ├── final_merged_movies.csv
