@@ -53,13 +53,13 @@ AI_Movie_Recommender/
     ├── movie_vectors.npy
     │
     ├── .vscode/
-    │      └── settings.json
+    │    └── settings.json
     │     
     ├── static/
-    │      ├── cinema.png
-    │      ├── main.js
-    │      └── style.css
+    │    ├── cinema.png
+    │    ├── main.js
+    │    └── style.css
     │    
     └── templates/
-        ├── explore.html
-        └── index.html
+         ├── explore.html
+         └── index.html
