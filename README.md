@@ -23,7 +23,7 @@ The system utilizes a Retrieval-Augmented Generation (RAG) workflow to provide c
 - Reranking: Scores and re-orders results to ensure the most relevant movies are presented at the top.
 
 ## Installation
-Install the required libraries via pip: <br>
+Install the required libraries (via pip): <br>
 pip install flask pandas numpy faiss-cpu sentence-transformers openai rank_bm25 tqdm
 
 ## Folder Tree Structure
