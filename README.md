@@ -10,7 +10,9 @@ This project is an AI-powered movie recommendation platform designed to decode n
 The system utilizes a Retrieval-Augmented Generation (RAG) workflow to provide conversational and accurate answers.
 - Backend: Python and Flask.
 - Frontend: HTML5, CSS3, and JavaScript.
-- Hybrid Search Engine: Combines FAISS (Vector Search) for semantic meaning with BM25 (Keyword Filtering) for exact term matching.
+- Hybrid Search Engine:
+    - FAISS (Vector Search) for semantic meaning.
+    - BM25 (Keyword Filtering) for exact term matching.
 - AI Models:
     - Trinity Large Preview (Arcee AI): Used for query optimization (rewriting) and generating the final conversational response.
     - MoonDream2 (Hugging Face): A Vision-Language Model used to describe movie posters for better text enrichment.
