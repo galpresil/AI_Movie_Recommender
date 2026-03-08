@@ -1,6 +1,6 @@
 # AI Movie Recommender
 
-This project is an AI-powered movie recommendation platform designed to decode natural language user requests and provide highly relevant, personalized film suggestions. By combining semantic search with lexical precision, the system ensures that users find the exact movie they are looking for.
+An AI-powered movie recommendation platform designed to decode natural language user requests. By combining semantic search with lexical precision, the system ensures that users find the exact movie they are looking for.
 
 ## Project Overview
 - Goal: To develop a recommendation system based on advanced AI techniques that understands user intent.
